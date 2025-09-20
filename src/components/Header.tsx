@@ -3,7 +3,12 @@ import { Badge } from "./ui/badge";
 import { ThemeToggle } from "./ThemeToggle";
 import { Zap, Menu, Sparkles } from "lucide-react";
 
-export function Header() {
+interface HeaderProps {
+  onNavigate?: (page: string) => void;
+  currentPage?: string;
+}
+
+export function Header({ onNavigate, currentPage = 'landing' }: HeaderProps) {
   return (
     <header className="border-b border-border/40 bg-background/80 backdrop-blur-lg sticky top-0 z-50">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -27,18 +32,38 @@ export function Header() {
           </div>
           
           <nav className="hidden md:flex items-center space-x-8">
-            <a href="#features" className="text-muted-foreground hover:text-primary transition-colors font-medium">
+            <button 
+              onClick={() => onNavigate?.('features')}
+              className={`transition-colors font-medium ${
+                currentPage === 'features' ? 'text-primary' : 'text-muted-foreground hover:text-primary'
+              }`}
+            >
               Platform
-            </a>
-            <a href="#pricing" className="text-muted-foreground hover:text-primary transition-colors font-medium">
+            </button>
+            <button 
+              onClick={() => onNavigate?.('pricing')}
+              className={`transition-colors font-medium ${
+                currentPage === 'pricing' ? 'text-primary' : 'text-muted-foreground hover:text-primary'
+              }`}
+            >
               Pricing
-            </a>
-            <a href="#about" className="text-muted-foreground hover:text-primary transition-colors font-medium">
+            </button>
+            <button 
+              onClick={() => onNavigate?.('resources')}
+              className={`transition-colors font-medium ${
+                currentPage === 'resources' ? 'text-primary' : 'text-muted-foreground hover:text-primary'
+              }`}
+            >
               Resources
-            </a>
-            <a href="#enterprise" className="text-muted-foreground hover:text-primary transition-colors font-medium">
+            </button>
+            <button 
+              onClick={() => onNavigate?.('enterprise')}
+              className={`transition-colors font-medium ${
+                currentPage === 'enterprise' ? 'text-primary' : 'text-muted-foreground hover:text-primary'
+              }`}
+            >
               Enterprise
-            </a>
+            </button>
           </nav>
           
           <div className="flex items-center space-x-3">
@@ -46,7 +71,11 @@ export function Header() {
             <Button variant="ghost" size="sm" className="font-medium">
               Sign In
             </Button>
-            <Button size="sm" className="bg-gradient-to-r from-primary to-info hover:from-primary/90 hover:to-info/90 font-medium shadow-lg">
+            <Button 
+              size="sm" 
+              onClick={() => onNavigate?.('landing')}
+              className="bg-gradient-to-r from-primary to-info hover:from-primary/90 hover:to-info/90 font-medium shadow-lg"
+            >
               Start Free Scan
             </Button>
             <Button variant="ghost" size="sm" className="md:hidden">
